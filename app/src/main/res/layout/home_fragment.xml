@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="varHomeItems"
+            type="com.example.daggerhiltplayground.ui.home.HomeViewModel" />
+        <variable
+            name="varAdapterType"
+            type="com.example.daggerhiltplayground.util.AdapterType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeFragment">
+
+        <!--<include
+            android:id="@+id/rv_characters"
+            layout="@layout/character_list_layout"/>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_characters_list"
+            adapter_type="@{varAdapterType.Home}"
+            is_shimmer_view="@{false}"
+            recycler_adapter="@{varHomeItems.character.data}"
+            view_visibility="@{varHomeItems.character.status}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layoutAnimation="@anim/layout_animation"
+            error="@{false}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="2"
+            tools:listitem="@layout/character_card" />
+
+        <ProgressBar
+            is_shimmer_view="@{true}"
+            error="@{false}"
+            view_visibility="@{varHomeItems.character.status}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_error"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            view_visibility="@{varHomeItems.character.status}"
+            is_shimmer_view="@{false}"
+            error="@{true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.29000002"
+            app:srcCompat="@drawable/ic_pickle_rick"
+            android:contentDescription="@string/error_image_content_description" />
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            error="@{true}"
+            view_visibility="@{varHomeItems.character.status}"
+            is_shimmer_view="@{false}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:text="@{varHomeItems.character.error}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_error"
+            tools:text="Error Message" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

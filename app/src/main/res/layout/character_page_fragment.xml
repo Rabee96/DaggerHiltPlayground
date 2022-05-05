@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="varCharacterPage"
+            type="com.example.daggerhiltplayground.ui.characterPage.CharacterPageViewModel" />
+        <variable
+            name="varAdapterType"
+            type="com.example.daggerhiltplayground.util.AdapterType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.characterPage.CharacterPageFragment">
+
+
+        <ImageView
+            android:id="@+id/iv_character_banner"
+            imageUrl="@{varCharacterPage.characterInfo.image}"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:contentDescription="@string/character_image_content_description"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_character_name"
+            style="@style/Theme.App.Title1"
+            android:text="@{varCharacterPage.characterInfo.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_character_banner"
+            tools:text="Character name" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            setTextColor="@{varCharacterPage.characterInfo.status}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{varCharacterPage.characterInfo.status}"
+            android:textColor="@color/primaryColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_character_origin"
+            tools:text="status" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/location_label"
+            android:textColor="@color/darkPrimaryColor"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            style="@style/Theme.App.Title4"
+            android:text="@{varCharacterPage.characterInfo.location.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6"
+            tools:text="Location" />
+
+        <TextView
+            android:id="@+id/tv_character_origin"
+            style="@style/Theme.App.Title3"
+             android:text="@{varCharacterPage.characterInfo.origin.name}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_character_name"
+            tools:text="Origin" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_total_episode"
+            app:spanCount="2"
+            adapter_type="@{varAdapterType.CharacterInfo}"
+            recycler_adapter="@{varCharacterPage.characterInfo.episode}"
+            tools:listitem="@layout/episode_card" />
+
+        <TextView
+            android:id="@+id/tv_total_episode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            tools:text="Total Episodes : 100"
+            android:text="@{String.valueOf(varCharacterPage.characterInfo.episode.size())}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
